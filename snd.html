@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GPA Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #290338 0%, #57317e 100%);
+      padding: 40px;
+      text-align: center;
+      min-height: 50vh;
+    }
+    .title-container {
+      display: inline-block;
+      padding: 5px 30px;
+      border: 3px solid rgba(255, 255, 255, 0.678); /* Stylish border behind the title */
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.185);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+    }
+    .result-container {
+      margin-top: 20px;
+      padding: 5px ;
+      border: 2px solid rgba(255, 255, 255, 0.767); /* Stylish border for result */
+      border-radius: 10px;
+      background: rgba(4, 116, 32, 0.74); /* Background for result */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      color: rgb(241, 240, 240); /* Text color for result */
+      font-size: 24px; /* Font size for result */
+      font-weight: bold; /* Make result text bold */
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for result text */
+    }
+    table {
+      margin: auto;
+      border-collapse: separate;
+      border-spacing: 10px;
+      width: 80%;
+      background: rgba(163, 147, 147, 0.158);
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.733); /* Stylish border for the table */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    th, td {
+      border: 2px solid rgba(255, 255, 255, 0.63); /* Stylish border for cells */
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.123);
+      margin: 4px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      color: rgb(240, 238, 238); /* Change text color to white */
+      font-weight: bold; /* Make text bold */
+    }
+    th:hover, td:hover {
+      background: rgba(122, 120, 120, 0.658);
+      transform: translateY(-1px);
+    }
+    input {
+      width: 90%;
+      padding: 6px;
+      border: 2px solid rgba(253, 227, 227, 0.3); /* Stylish border for input fields */
+      border-radius: 5px;
+      background: rgba(17, 14, 14, 0.2);
+      color: rgb(241, 239, 239); /* Change input text color to white */
+      font-weight: bold; /* Make input text bold */
+    }
+    button {
+      padding: 10px 20px;
+      margin: 15px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background: rgba(179, 169, 169, 0.616);
+      color: white;
+      border: 2px solid rgba(240, 238, 238, 0.3); /* Stylish border for buttons */
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: rgba(189, 196, 189, 0.527);
+      transform: translateY(-2px);
+    }
+
+    .footer {
+        font-family: 'Michroma', sans-serif;
+        font-size: 14px; /* Smaller font size for footer */
+        color: white; /* Text color for footer */
+        margin-top: 90px;
+        text-shadow: 0 1px 2px rgba(3, 3, 3, 0.7); /* Shadow for footer text */
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="title-container">
+    <h2 style="font-family: 'Libre Baskerville', serif; color: white; font-weight: bold; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);">GPA Calculator</h2>
+  </div>
+
+  <table id="subjectTable">
+    <thead>
+      <tr>
+        <th style="background: rgba(255, 255, 255, 0.2); color: white; backdrop-filter: blur(5px);">Subject Name</th>
+        <th style="background: rgba(255, 255, 255, 0.2); color: white; backdrop-filter: blur(5px);">Credit Hours</th>
+        <th style="background: rgba(255, 255, 255, 0.2); color: white; backdrop-filter: blur(5px);">Marks Obtained (%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <script>
+        for (let i = 0; i < 3; i++) {
+          document.write(`
+            <tr>
+              <td><input type="text" placeholder="e.g., Math" required></td>
+              <td><input type="number" min="1" max="3" placeholder="e.g., 3" required></td>
+              <td><input type="number" min="0" max="100" placeholder="e.g., 78" required></td>
+            </tr>
+          `);
+        }
+      </script>
+    </tbody>
+  </table>
+
+  <button onclick="addRow()">Add More Subjects</button>
+  <button onclick="calculateGPA()">Calculate GPA</button>
+
+  <div class="result-container" id="resultGPA">GPA: </div>
+
+
+   <div class="footer">North Remembers</div>
+
+  <script>
+    const ngMap = {
+      50: 1.00, 51: 1.08, 52: 1.17, 53: 1.25, 54: 1.33, 55: 1.42,
+      56: 1.50, 57: 1.58, 58: 1.67, 59: 1.75, 60: 1.83, 61: 1.92,
+      62: 2.00, 63: 2.08, 64: 2.17, 65: 2.25, 66: 2.33, 67: 2.42,
+      68: 2.50, 69: 2.58, 70: 2.67, 71: 2.75, 72: 2.83, 73: 2.92,
+      74: 3.00, 75: 3.08, 76: 3.17, 77: 3.25, 78: 3.33, 79: 3.42,
+      80: 3.50, 81: 3.60, 82: 3.70, 83: 3.80, 84: 3.90, 85: 4.00
+    };
+
+    function getNG(score) {
+      if (score < 50) return 0.00;
+      if (score > 85) return 4.00;
+      let rounded = Math.floor(score);
+      while (!ngMap[rounded] && rounded >= 50) {
+        rounded--;
+      }
+      return ngMap[rounded] || 1.00;
+    }
+
+    function calculateGPA() {
+      const rows = document.querySelectorAll("#subjectTable tbody tr");
+      let totalWeightedGPA = 0;
+      let totalCredits = 0;
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const credits = parseFloat(cells[1].querySelector("input")?.value);
+        const marks = parseFloat(cells[2].querySelector("input")?.value);
+
+        if (!isNaN(marks) && marks >= 0 && marks <= 100 && !isNaN(credits) && credits > 0) {
+          const ng = getNG(marks);
+          totalWeightedGPA += ng * credits;
+          totalCredits += credits;
+        }
+      });
+
+      const result = document.getElementById("resultGPA");
+      if (totalCredits === 0) {
+        result.textContent = "GPA: Please enter valid marks and credits.";
+      } else {
+        const gpa = totalWeightedGPA / totalCredits;
+        result.textContent = `GPA: ${gpa.toFixed(2)}`;
+      }
+    }
+
+    function addRow() {
+      const tableBody = document.querySelector("#subjectTable tbody");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td><input type="text" placeholder="e.g., Science" required></td>
+        <td><input type="number" min="1" max="5" placeholder="e.g., 3" required></td>
+        <td><input type="number" min="0" max="100" placeholder="e.g., 88" required></td>
+      `;
+
+      tableBody.appendChild(row);
+    }
+  </script>
+
+</body>
+</html>
